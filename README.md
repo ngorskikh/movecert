@@ -1,3 +1,10 @@
+# Changes:
+Copy the certs instead of moving. Chrome recently started requiring CT logs for certs from the system store.
+Since the user's CA certs probably don't implement CT, this is a problem. The solution is to copy the certs
+to the system store instead of moving them, and then exclude Chrome from Magisk's modifications.
+This way Chrome sees the user's certs in the user directory and doesn't complain about CT,
+while other apps see the certs in the system directory and are happy.
+
 # **Move Certificates**
 ## Description
 Moves certificates from the user certificate store to the system store. Also removes the *Network may be monitored* warning.
