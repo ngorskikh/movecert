@@ -1,6 +1,6 @@
 id=copycert
 name=Copy Certificates
-version=v1.9
-versionCode=10
-author=yochananmarqos
+version=v1.0
+versionCode=1
+author=adguard
 description=Copies certificates from the user certificate store to the system store.
