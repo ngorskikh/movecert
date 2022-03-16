@@ -1,59 +1,12 @@
-# Changes:
-Copy the certs instead of moving. Chrome recently started requiring CT logs for certs from the system store.
-Since the user's CA certs probably don't implement CT, this is a problem. The solution is to copy the certs
-to the system store instead of moving them, and then exclude Chrome from Magisk's modifications.
-This way Chrome sees the user's certs in the user directory and doesn't complain about CT,
-while other apps see the certs in the system directory and are happy.
-
-# **Move Certificates**
+# **Copy Certificates**
 ## Description
-Moves certificates from the user certificate store to the system store. Also removes the *Network may be monitored* warning.
-
-## Changelog
-v1.9
-* Dynamically determine correct SELinux context for cert from device itself.
-* AdGuard users may need to reinstall their HTTPS filtering certificate.
-
-v1.8
-* Merged pull request: Fix SELinux contexts
-
-v1.7
-
-* Merged pull request: Prevent placeholder from being moved to system store
-* Merged pull request: System store certs should be owned by user and group root
-
-v1.6
-
-* Updated to newest module installer template 
-
-v1.5
-
-* Updated module template to 17000
-
-v1.4
-
-* Remove unnecessary placeholders
-
-v1.3
-
-* Create system store module directory instead of mkdir command
-
-v1.2
-
-* Create system store directory if it does not already exist
-
-v1.1
-
-  * Added more info to README
-
-v1
-
-  * Initial release
-
-## Notes
-If for some reason you do not want all your certificates moved from the user store to the system store, you can specify which certificate to move in `/common/post-fs-data.sh` by replacing the * with the name of the certificate; i.e.,
-```
-mv -f /data/misc/user/0/cacerts-added/12abc345.0 $MODDIR/system/etc/security/cacerts
-```
-
-
+Based on [Move Certificates](https://github.com/Magisk-Modules-Repo/movecert).
+Copies certificates from the user certificate store to the system store.
+## Rationale
+Chrome recently started requiring CT logs for certs issues by CAs from the system store.
+One way to continue using Chrome while having custom CA certs in the system store
+is to copy the custom certs from the user store instead of moving them, and exclude
+Chrome from Magisk modifications (which can be done in recent version of Magisk by
+enabling Zygisk and adding Chrome to the denylist). This way Chrome will use
+the certificates from the user store, for which CT is not mandatory, while
+other apps will see the certificates in the system store.
