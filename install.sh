@@ -124,7 +124,6 @@ REPLACE="
 print_modname() {
   ui_print "*******************************"
   ui_print "        Copy Certificates      "
-  ui_print "     by yochananmarqos @XDA    "
   ui_print "*******************************"
 }
 
